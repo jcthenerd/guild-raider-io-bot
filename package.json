@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node src/app.js",
     "register": "node src/commands.js",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon app.local.js"
   },
   "author": "John Collins",
   "license": "MIT",
