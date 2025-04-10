@@ -74,7 +74,9 @@ async function getMemberRating(character) {
 }
 
 export async function getCharacterData(characterName, realm) {
+    console.log("Entering call to raider io");
     const character = await fetchCharacterInfo(characterName, realm);
+    console.log("Returned from raider io call");
 
     const characterInfoBody = [
         [`Character Name`, `${character.name}`], 
@@ -85,6 +87,7 @@ export async function getCharacterData(characterName, realm) {
         [`Active Spec Region Rank`, `${getActiveSpecRank(character)}`]
     ];
 
+    console.log("Building table");
     const table = new AsciiTable3('Character Info')
         .addRowMatrix(characterInfoBody);
     return '```\n' + table.toString() + '```';
