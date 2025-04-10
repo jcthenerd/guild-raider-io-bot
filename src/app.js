@@ -55,12 +55,15 @@ router.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async 
     }
 
     if (name === 'character_stats') {
+      console.log("Sending defered response");
       await res.send({
         type: InteractionResponseType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE
       });
+      console.log("Fetching character data");
 
       const characterInfo = await getCharacterData(data.options[0].value, data.options[1].value);
 
+      console.log("Updating discore message");
       await DiscordRequest(`webhooks/${process.env.APP_ID}/${req.body.token}/messages/@original`,
         {
           body: {
@@ -70,6 +73,7 @@ router.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async 
         }
       );
 
+      console.log("ending response");
       return res.end();
     }
 
