@@ -7,6 +7,7 @@ import {
 } from 'discord-interactions';
 import { DiscordRequest } from './utils.js';
 import { getGuildList, getCharacterData } from './raider_io.js';
+import serverless from "serverless-http";
 
 // Create an express app
 const app = express();
@@ -86,3 +87,5 @@ app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async fun
 app.listen(PORT, () => {
   console.log('Listening on port', PORT);
 });
+
+export const handler = serverless(app);
