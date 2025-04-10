@@ -1,6 +1,7 @@
 import { AsciiTable3 } from "ascii-table3";
+import 'dotenv/config';
 
-const guildUrl = 'https://raider.io/api/v1/guilds/profile?region=us&realm=nerzhul&name=trade%20union&fields=members';
+const guildUrl = `https://raider.io/api/v1/guilds/profile?region=us&realm=nerzhul&name=trade%20union&fields=members&access_key=${process.env.RAIDER_IO_KEY}`;
 const seasonSlug = 'season-tww-2';
 
 export async function getGuildList() {
@@ -93,7 +94,7 @@ export async function getCharacterData(characterName, realm) {
 async function fetchCharacterInfo(characterName, realm) {
     const realmSlug = realm.replace(' ', '-').replace("'", '');
 
-    const characterUrl = `https://raider.io/api/v1/characters/profile?region=us&realm=${realmSlug}&name=${characterName}&fields=mythic_plus_ranks,mythic_plus_scores_by_season:${seasonSlug}`;
+    const characterUrl = `https://raider.io/api/v1/characters/profile?region=us&realm=${realmSlug}&name=${characterName}&fields=mythic_plus_ranks,mythic_plus_scores_by_season:${seasonSlug}&access_key=${process.env.RAIDER_IO_KEY}`;
     const res = await fetch(characterUrl);
 
     if (!res.ok) {
