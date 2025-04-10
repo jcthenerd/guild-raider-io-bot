@@ -99,6 +99,7 @@ async function fetchCharacterInfo(characterName, realm) {
 
     const characterUrl = `https://raider.io/api/v1/characters/profile?region=us&realm=${realmSlug}&name=${characterName}&fields=mythic_plus_ranks,mythic_plus_scores_by_season:${seasonSlug}&access_key=${process.env.RAIDER_IO_KEY}`;
     const res = await fetch(characterUrl);
+    console.log(`Response okay: ${res.ok}`);
 
     if (!res.ok) {
         const data = await res.json();
