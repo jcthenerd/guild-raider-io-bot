@@ -11,13 +11,13 @@ import { getGuildList, getCharacterData } from './raider_io.js';
 // Create an express app
 export const app = express();
 
-const router = express.Router();
+const PORT = process.env.PORT || 3000;
 
 /**
  * Interactions endpoint URL where Discord will send HTTP requests
  * Parse request body and verifies incoming requests using discord-interactions package
  */
-router.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async function (req, res) {
+app.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async function (req, res) {
   // Interaction id, type and data
   const { id, type, data } = req.body;
 
@@ -85,4 +85,6 @@ router.post('/interactions', verifyKeyMiddleware(process.env.PUBLIC_KEY), async 
   return res.status(400).json({ error: 'unknown interaction type' });
 });
 
-app.use('/api', router);
+app.listen(PORT, () => {
+    console.log('Listening on port', PORT);
+});
